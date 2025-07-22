@@ -45,6 +45,7 @@ IF OBJECT_ID('silver.IndividualCustomer', 'U') IS NOT NULL
 CREATE TABLE silver.IndividualCustomer (
     CustomerID INT NOT NULL,
     FirstName NVARCHAR(50),
+    Title NVARCHAR(10),
     MiddleName NVARCHAR(50),
     LastName NVARCHAR(50),
     Gender NVARCHAR(10),
