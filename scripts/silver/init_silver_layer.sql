@@ -94,7 +94,7 @@ CREATE TABLE silver.ProductSubCategory (
     ProductSubCategoryID INT NOT NULL,
     ProductCategoryID INT,
     Name NVARCHAR(100),
-    ModifiedDate DATETIME
+    ModifiedDate DATE
 );
 
 -- SalesOrderDetail
