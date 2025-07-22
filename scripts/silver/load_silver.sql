@@ -49,3 +49,34 @@ SELECT
     PostalCode,
     CountryRegionName
 FROM bronze.CustomerAddress;
+
+
+-- Insert Cleaned Data into InddividualCustomer Table
+INSERT INTO silver.IndividualCustomer(
+    CustomerID,
+    Title,
+    FirstName,
+    MiddleName,
+    LastName,
+    Gender,
+    PhoneNumber,
+    PhoneNumberType,
+    EmailAddress,
+    EmailPromotion)
+SELECT 
+    CustomerID,
+    COALESCE(Title, 'N/A') AS Title,
+    FirstName,
+    COALESCE(MiddleName, 'N/A') AS MiddleName,
+    LastName,
+    CASE 
+        WHEN Gender = 'M' THEN 'Male'
+        WHEN Gender = 'F' THEN 'Female'
+        WHEN Gender IS NULL THEN 'N/A'
+        ELSE Gender 
+    END AS Gender,
+    PhoneNumber,
+    PhoneNumberType,
+    EmailAddress,
+    EmailPromotion
+FROM bronze.IndividualCustomer;
