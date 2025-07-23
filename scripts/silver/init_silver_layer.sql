@@ -161,6 +161,26 @@ CREATE TABLE silver.SalesPerson (
     SalesYTD DECIMAL(18,2),
     SalesLastYear DECIMAL(18,2)
 );
+GO
+-- Insert Unassigned sales person to handle 'salesperson = NULL' sales order records
+INSERT INTO silver.SalesPerson (
+    BusinessEntityID,
+    TerritoryID,
+    SalesQuota,
+    Bonus,
+    CommissionPct,
+    SalesYTD,
+    SalesLastYear
+)   
+VALUES (
+    -1,         
+    -1,       
+    0.00,        
+    0.00,        
+    0.0000,      
+    0.00,        
+    0.00         
+);
 
 -- SalesTerritory
 IF OBJECT_ID('silver.SalesTerritory', 'U') IS NOT NULL
