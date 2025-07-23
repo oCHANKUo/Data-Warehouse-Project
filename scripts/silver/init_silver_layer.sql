@@ -192,3 +192,8 @@ CREATE TABLE silver.SalesTerritory (
     CountryRegionCode NVARCHAR(10),
     RegionGroup NVARCHAR(50)
 );
+GO
+-- Handling Unassigned
+INSERT INTO silver.SalesTerritory (TerritoryID, TerritoryName, CountryRegionCode, RegionGroup)
+VALUES 
+    (-1, 'Unassigned', 'N/A', 'Unassigned');
