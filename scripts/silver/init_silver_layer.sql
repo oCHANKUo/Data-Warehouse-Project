@@ -84,7 +84,7 @@ IF OBJECT_ID('silver.ProductCategory', 'U') IS NOT NULL
 CREATE TABLE silver.ProductCategory (
     ProductCategoryID INT NOT NULL,
     Name NVARCHAR(100),
-    ModifiedDate DATETIME
+    ModifiedDate DATE
 );
 
 -- ProductSubCategory
