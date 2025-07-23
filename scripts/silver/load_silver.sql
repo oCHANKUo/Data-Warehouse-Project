@@ -80,3 +80,43 @@ SELECT
     EmailAddress,
     EmailPromotion
 FROM bronze.IndividualCustomer;
+
+-- Insert cleaned data into Product Table
+INSERT INTO silver.Product (
+    ProductID,
+    ProductName,
+    ProductNumber,
+    MakeFlag,
+    FinishedGoodsFlag,
+    Color,
+    SafetyStockLevel,
+    ReorderPoint,
+    StandardCost,
+    ListPrice,
+    Size,
+    SizeUnitMeasureCode,
+    Weight,
+    WeightUnitMeasureCode,
+    ProductSubCategoryID
+)
+SELECT 
+	ProductID,
+	Name,
+	ProductNumber,
+	MakeFlag,
+	FinishedGoodsFlag,
+    CASE 
+        WHEN Color = 'Multi' THEN 'Multicolor'
+        WHEN Color IS NULL THEN 'N/A'
+        ELSE Color
+    END AS Color,
+	SafetyStockLevel,
+	ReorderPoint,
+	StandardCost,
+	ListPrice,
+	COALESCE(Size, 'N/A') AS Size,
+    COALESCE(SizeUnitMeasureCode, 'N/A') AS SizeUnitMeasureCode,
+	Weight,
+	COALESCE(WeightUnitMeasureCode, 'N/A') AS WeightUnitMeasureCode,
+	COALESCE(ProductSubCategoryID, -1) AS ProductSubCategoryID
+FROM bronze.Product;
