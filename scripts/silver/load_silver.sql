@@ -120,3 +120,15 @@ SELECT
 	COALESCE(WeightUnitMeasureCode, 'N/A') AS WeightUnitMeasureCode,
 	COALESCE(ProductSubCategoryID, -1) AS ProductSubCategoryID
 FROM bronze.Product;
+
+-- Insert Cleaned Data into ProductCategory Table
+INSERT INTO silver.ProductCategory (
+    ProductCategoryID,
+    ProductCategoryName,
+    ModifiedDate
+)
+SELECT
+    ProductCategoryID,
+    TRIM(Name) AS Name,
+    CAST(ModifiedDate AS DATE) AS ModifiedDate
+FROM bronze.ProductCategory;
