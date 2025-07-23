@@ -11,20 +11,6 @@
 ===============================================================
 */
 
--- Insert cleaned data into the Silver ProductSubCategory Table
-INSERT INTO silver.ProductSubCategory (
-    ProductSubCategoryID, 
-    ProductCategoryID, 
-    ProductSubCategoryName, 
-    ModifiedDate)
-SELECT
-    ProductSubCategoryID,
-    ProductCategoryID,
-    name,
-    CAST(ModifiedDate AS DATE)
-FROM bronze.ProductSubCategory;
-
-
 
 -- Insert cleaned data into the Silver CustomerAddress Table
 INSERT INTO silver.CustomerAddress (
@@ -132,3 +118,19 @@ SELECT
     TRIM(Name) AS Name,
     CAST(ModifiedDate AS DATE) AS ModifiedDate
 FROM bronze.ProductCategory;
+
+
+-- Insert cleaned data into the Silver ProductSubCategory Table
+INSERT INTO silver.ProductSubCategory (
+    ProductSubCategoryID, 
+    ProductCategoryID, 
+    ProductSubCategoryName, 
+    ModifiedDate)
+SELECT
+    ProductSubCategoryID,
+    ProductCategoryID,
+    name,
+    CAST(ModifiedDate AS DATE)
+FROM bronze.ProductSubCategory;
+
+
