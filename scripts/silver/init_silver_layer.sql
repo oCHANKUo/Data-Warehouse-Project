@@ -97,7 +97,7 @@ CREATE TABLE silver.ProductSubCategory (
     ProductSubCategoryName NVARCHAR(100),
     ModifiedDate DATE
 );
-
+GO
 --Insert a Uncategorized row to handle uncategorized product items
 INSERT INTO silver.ProductSubCategory (
     ProductSubCategoryID,
