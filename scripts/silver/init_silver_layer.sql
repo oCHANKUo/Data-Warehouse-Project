@@ -98,6 +98,19 @@ CREATE TABLE silver.ProductSubCategory (
     ModifiedDate DATE
 );
 
+--Insert a Uncategorized row to handle uncategorized product items
+INSERT INTO silver.ProductSubCategory (
+    ProductSubCategoryID,
+    ProductCategoryID,
+    ProductSubCategoryName,
+    ModifiedDate
+) VALUES (
+    -1,
+    -1,
+    'Uncategorized',
+    GETDATE()
+);
+
 -- SalesOrderDetail
 IF OBJECT_ID('silver.SalesOrderDetail', 'U') IS NOT NULL
     DROP TABLE silver.SalesOrderDetail;
