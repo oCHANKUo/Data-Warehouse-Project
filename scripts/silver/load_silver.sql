@@ -135,6 +135,17 @@ BEGIN
             TRIM(Name) AS Name,
             CAST(ModifiedDate AS DATE) AS ModifiedDate
         FROM bronze.ProductCategory;
+        
+        -- Handle Uncategorised items
+         --Insert a Uncategorized row to handle uncategorized product items
+        INSERT INTO silver.ProductCategory (
+            ProductCategoryID,
+            ProductCategoryName,
+            ModifiedDate)
+        VALUES (
+            -1,
+            'Uncategorized',
+            GETDATE());
 
 
 
@@ -151,6 +162,18 @@ BEGIN
             name,
             CAST(ModifiedDate AS DATE)
         FROM bronze.ProductSubCategory;
+
+        --Insert a Uncategorized row to handle uncategorized product items
+        INSERT INTO silver.ProductSubCategory (
+            ProductSubCategoryID,
+            ProductCategoryID,
+            ProductSubCategoryName,
+            ModifiedDate)
+        VALUES (
+            -1,
+            -1,
+            'Uncategorized',
+            GETDATE());
 
 
 
@@ -241,6 +264,24 @@ BEGIN
             SalesLastYear
         FROM bronze.SalesPerson;
 
+        -- Insert Unassigned sales person to handle 'salesperson = NULL' sales order records
+        INSERT INTO silver.SalesPerson (
+            BusinessEntityID,
+            TerritoryID,
+            SalesQuota,
+            Bonus,
+            CommissionPct,
+            SalesYTD,
+            SalesLastYear )   
+        VALUES (
+            -1,         
+            -1,       
+            0.00,        
+            0.00,        
+            0.0000,      
+            0.00,        
+            0.00 );
+
 
 
         -- Insert cleaned data into SalesTearritory
@@ -257,6 +298,11 @@ BEGIN
             TRIM(CountryRegionCode) AS CountryRegionCode,
             TRIM(RegionGroup) AS RegionGroup
         FROM bronze.SalesTerritory;
+
+        -- Handling Unassigned
+        INSERT INTO silver.SalesTerritory (TerritoryID, TerritoryName, CountryRegionCode, RegionGroup)
+        VALUES 
+            (-1, 'Unassigned', 'N/A', 'Unassigned');
 
          PRINT 'silver.load_silver completed successfully.';
 
