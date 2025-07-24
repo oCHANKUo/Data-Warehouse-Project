@@ -1,3 +1,19 @@
+/*
+===============================================================
+    Script Name: gold_layer_table_creation.sql
+    Purpose: Creates Gold layer fact and dimension tables
+             for the data warehouse including:
+             - FactSalesOrderDetail
+             - DimCustomer
+             - DimProduct
+             - DimSalesPerson
+             - DimTerritory
+             - DimDate (with date dimension population logic)
+   	     - Drops tables if they already exist before creation.
+===============================================================
+*/
+
+
 
 -- ===Fact Table===============================================
 -- Create FactSalesOrderDetail table
