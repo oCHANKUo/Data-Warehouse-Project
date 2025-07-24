@@ -38,6 +38,8 @@ CREATE TABLE silver.CustomerAddress (
     CountryRegionName NVARCHAR(100)
 );
 
+
+
 -- IndividualCustomer
 IF OBJECT_ID('silver.IndividualCustomer', 'U') IS NOT NULL
     DROP TABLE silver.IndividualCustomer;
@@ -55,27 +57,31 @@ CREATE TABLE silver.IndividualCustomer (
     EmailPromotion INT
 );
 
+
+
 -- Product
 IF OBJECT_ID('silver.Product', 'U') IS NOT NULL
     DROP TABLE silver.Product;
 
 CREATE TABLE silver.Product (
     ProductID INT NOT NULL,
-    Name NVARCHAR(100),
-    ProductNumber NVARCHAR(50),
+    ProductName NVARCHAR(50),
+    ProductNumber NVARCHAR(25),
     MakeFlag BIT,
     FinishedGoodsFlag BIT,
-    Color NVARCHAR(50),
+    Color NVARCHAR(15),
     SafetyStockLevel INT,
     ReorderPoint INT,
-    StandardCost DECIMAL(18,2),
-    ListPrice DECIMAL(18,2),
-    Size NVARCHAR(20),
-    SizeUnitMeasureCode NVARCHAR(10),
-    Weight DECIMAL(18,2),
-    WeightUnitMeasureCode NVARCHAR(10),
+    StandardCost MONEY,
+    ListPrice MONEY,
+    Size NVARCHAR(5),
+    SizeUnitMeasureCode NVARCHAR(5),
+    Weight DECIMAL(8,2),
+    WeightUnitMeasureCode NVARCHAR(3),
     ProductSubCategoryID INT
 );
+
+
 
 -- ProductCategory
 IF OBJECT_ID('silver.ProductCategory', 'U') IS NOT NULL
@@ -83,9 +89,11 @@ IF OBJECT_ID('silver.ProductCategory', 'U') IS NOT NULL
 
 CREATE TABLE silver.ProductCategory (
     ProductCategoryID INT NOT NULL,
-    Name NVARCHAR(100),
+    ProductCategoryName NVARCHAR(100),
     ModifiedDate DATE
 );
+
+
 
 -- ProductSubCategory
 IF OBJECT_ID('silver.ProductSubCategory', 'U') IS NOT NULL
@@ -111,6 +119,8 @@ INSERT INTO silver.ProductSubCategory (
     GETDATE()
 );
 
+
+
 -- SalesOrderDetail
 IF OBJECT_ID('silver.SalesOrderDetail', 'U') IS NOT NULL
     DROP TABLE silver.SalesOrderDetail;
@@ -121,10 +131,13 @@ CREATE TABLE silver.SalesOrderDetail (
     CarrierTrackingNumber NVARCHAR(50),
     OrderQTY INT,
     ProductID INT,
-    UnitPriceDiscount DECIMAL(18,2),
+    UnitPrice MONEY,
+    UnitPriceDiscount MONEY,
     LineTotal DECIMAL(18,2),
-    ModdifiedDate DATETIME
+    ModifiedDate DATE
 );
+
+
 
 -- SalesOrderHeader
 IF OBJECT_ID('silver.SalesOrderHeader', 'U') IS NOT NULL
@@ -132,21 +145,23 @@ IF OBJECT_ID('silver.SalesOrderHeader', 'U') IS NOT NULL
 
 CREATE TABLE silver.SalesOrderHeader (
     SalesOrderID INT NOT NULL,
-    OrderDate DATETIME,
-    DueDate DATETIME,
-    ShipDate DATETIME,
-    SalesOrderNumber NVARCHAR(50),
-    PurchaseOrderNumber NVARCHAR(50),
-    AccountNumber NVARCHAR(50),
+    OrderDate DATE,
+    DueDate DATE,
+    ShipDate DATE,
+    SalesOrderNumber NVARCHAR(25),
+    PurchaseOrderNumber NVARCHAR(25),
+    AccountNumber NVARCHAR(15),
     CustomerID INT,
     SalesPersonID INT,
     TerritoryID INT,
-    SubTotal DECIMAL(18,2),
-    TaxAmt DECIMAL(18,2),
-    Freight DECIMAL(18,2),
-    TotalDue DECIMAL(18,2),
-    ModifiedDate DATETIME
+    SubTotal MONEY,
+    TaxAmt MONEY,
+    Freight MONEY,
+    TotalDue MONEY,
+    ModifiedDate DATE
 );
+
+
 
 -- SalesPerson
 IF OBJECT_ID('silver.SalesPerson', 'U') IS NOT NULL
@@ -155,11 +170,11 @@ IF OBJECT_ID('silver.SalesPerson', 'U') IS NOT NULL
 CREATE TABLE silver.SalesPerson (
     BusinessEntityID INT NOT NULL,
     TerritoryID INT,
-    SalesQuota DECIMAL(18,2),
-    Bonus DECIMAL(18,2),
-    CommissionPct DECIMAL(5,4),
-    SalesYTD DECIMAL(18,2),
-    SalesLastYear DECIMAL(18,2)
+    SalesQuota MONEY,
+    Bonus MONEY,
+    CommissionPct MONEY,
+    SalesYTD MONEY,
+    SalesLastYear MONEY
 );
 GO
 -- Insert Unassigned sales person to handle 'salesperson = NULL' sales order records
@@ -182,13 +197,15 @@ VALUES (
     0.00         
 );
 
+
+
 -- SalesTerritory
 IF OBJECT_ID('silver.SalesTerritory', 'U') IS NOT NULL
     DROP TABLE silver.SalesTerritory;
 
 CREATE TABLE silver.SalesTerritory (
     TerritoryID INT NOT NULL,
-    Name NVARCHAR(100),
+    TerritoryName NVARCHAR(100),
     CountryRegionCode NVARCHAR(10),
     RegionGroup NVARCHAR(50)
 );
@@ -197,3 +214,4 @@ GO
 INSERT INTO silver.SalesTerritory (TerritoryID, TerritoryName, CountryRegionCode, RegionGroup)
 VALUES 
     (-1, 'Unassigned', 'N/A', 'Unassigned');
+
