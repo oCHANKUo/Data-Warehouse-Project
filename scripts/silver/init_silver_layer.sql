@@ -30,12 +30,12 @@ IF OBJECT_ID('silver.CustomerAddress', 'U') IS NOT NULL
 CREATE TABLE silver.CustomerAddress (
     CustomerID INT NOT NULL,
     AddressType NVARCHAR(50),
-    AddressLine1 NVARCHAR(255),
-    AddressLine2 NVARCHAR(255),
-    City NVARCHAR(100),
-    StateProvinceName NVARCHAR(100),
-    PostalCode NVARCHAR(20),
-    CountryRegionName NVARCHAR(100)
+    AddressLine1 NVARCHAR(50),
+    AddressLine2 NVARCHAR(50),
+    City NVARCHAR(50),
+    StateProvinceName NVARCHAR(50),
+    PostalCode NVARCHAR(50),
+    CountryRegionName NVARCHAR(50)
 );
 
 
@@ -47,13 +47,13 @@ IF OBJECT_ID('silver.IndividualCustomer', 'U') IS NOT NULL
 CREATE TABLE silver.IndividualCustomer (
     CustomerID INT NOT NULL,
     FirstName NVARCHAR(50),
-    Title NVARCHAR(10),
+    Title NVARCHAR(50),
     MiddleName NVARCHAR(50),
     LastName NVARCHAR(50),
     Gender NVARCHAR(10),
-    PhoneNumber NVARCHAR(20),
-    PhoneNumberType NVARCHAR(20),
-    EmailAddress NVARCHAR(100),
+    PhoneNumber NVARCHAR(25),
+    PhoneNumberType NVARCHAR(50),
+    EmailAddress NVARCHAR(50),
     EmailPromotion INT
 );
 
@@ -89,7 +89,7 @@ IF OBJECT_ID('silver.ProductCategory', 'U') IS NOT NULL
 
 CREATE TABLE silver.ProductCategory (
     ProductCategoryID INT NOT NULL,
-    ProductCategoryName NVARCHAR(100),
+    ProductCategoryName NVARCHAR(50),
     ModifiedDate DATE
 );
 
@@ -102,7 +102,7 @@ IF OBJECT_ID('silver.ProductSubCategory', 'U') IS NOT NULL
 CREATE TABLE silver.ProductSubCategory (
     ProductSubCategoryID INT NOT NULL,
     ProductCategoryID INT,
-    ProductSubCategoryName NVARCHAR(100),
+    ProductSubCategoryName NVARCHAR(50),
     ModifiedDate DATE
 );
 GO
@@ -128,7 +128,7 @@ IF OBJECT_ID('silver.SalesOrderDetail', 'U') IS NOT NULL
 CREATE TABLE silver.SalesOrderDetail (
     SalesOrderDetailID INT NOT NULL,
     SalesOrderID INT,
-    CarrierTrackingNumber NVARCHAR(50),
+    CarrierTrackingNumber NVARCHAR(25),
     OrderQTY INT,
     ProductID INT,
     UnitPrice MONEY,
@@ -205,7 +205,7 @@ IF OBJECT_ID('silver.SalesTerritory', 'U') IS NOT NULL
 
 CREATE TABLE silver.SalesTerritory (
     TerritoryID INT NOT NULL,
-    TerritoryName NVARCHAR(100),
+    TerritoryName NVARCHAR(50),
     CountryRegionCode NVARCHAR(10),
     RegionGroup NVARCHAR(50)
 );
